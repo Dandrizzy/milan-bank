@@ -15,36 +15,46 @@ import { useEdit } from '@/Hooks/Edit/useEdit';
 
 const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
  const [name, setName] = useState(null);
+ const [OTP, setOTP] = useState(0);
+ const [required, setRequired] = useState(false);
  const [valid, setValid] = useState(false);
- let notValid = !valid;
  const { reset, register, handleSubmit, getValues, formState: { errors } } = useForm();
  const { create: fn } = useCreateApi({ key: 'transactions' });
  const { create, isCreating } = useCreate({ fn, key: ['transaction'] });
  const { fetch: fetchFn } = useGetApi({ key: 'accounts' });
  const { fetch: acc, isFetching } = useGet({ key: ['account', userId], fn: fetchFn });
+ const { fetch: otpFn } = useGetApi({ key: 'otp' });
+ const { fetch: otp, isFetching: isFetchingOtp } = useGet({ key: ['otp'], fn: otpFn });
  const acn = acc?.find(ac => ac?.userId === userId);
  const { editFn } = useEditApi({ key: 'accounts', id: acn?.id });
  const { edit, isEditing } = useEdit({ key: ['accounts'], fn: editFn });
 
- if (isFetching) return <Spinner />;
+ if (isFetching || isFetchingOtp) return <Spinner />;
 
  const bal = acc?.find(ac => ac?.userId === userId)?.checking;
 
  const onSubmit = data => {
   if (!data || data === undefined) return;
   const amount = bal - data?.amount;
-  create({ ...data, userId, author: 'milan', type: 'transfer', name }, {
-   onSuccess: () => {
-    edit({ name: acn.name, checking: amount, account: acn.account, admin: acn.admin, email: acn.email, routing: acn.routing, savings: acn.savings, userId });
-    setValid(false);
-    setName(null);
-    reset();
-   }
-  });
+
+  if (+OTP === otp.at(0).otp || data?.amount < 1000) {
+   create({ ...data, userId, author: 'milan', type: 'transfer', name }, {
+    onSuccess: () => {
+     edit({ name: acn.name, checking: amount, account: acn.account, admin: acn.admin, email: acn.email, routing: acn.routing, savings: acn.savings, userId });
+     setValid(false);
+     setRequired(false);
+     setName(null);
+     reset();
+    }
+   });
+  }
  };
+
  const onClick = () => {
+  const amount = +getValues('amount');
+  if (amount > 1000) setRequired(true);
   const accounts = acc?.find(ac => ac.account === +getValues('account'));
-  if (!accounts) return setValid(false);
+  if (!accounts) return;
   if (accounts) {
    setName(accounts?.name);
    setValid(true);
@@ -75,7 +85,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
          required: 'This field is required',
          max: { value: bal, message: 'Amount should be less than checking balance' }
         })} id='amount'
-        placeholder="Enter amount to deposit"
+        placeholder="Enter amount to credit"
        />
        {errors?.amount?.message && <div className="pt-2">
         <span className=' text-rose-800 bg-rose-200 text-xs py-2 px-4 rounded-full'>{errors?.amount?.message}</span>
@@ -101,14 +111,30 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
        {errors?.account?.message && <div className="pt-2">
         <span className=' text-rose-800 bg-rose-200 text-xs py-2 px-4 rounded-full'>{errors?.account?.message}</span>
        </div>}
+
       </label>
-      <p className=' text-neutral-500 uppercase font-bold'>{name}</p>
-      {!notValid && <p className=' text-rose-500 uppercase text-xs font-bold'>No account found</p>}
+      {valid && <p className=' text-neutral-500 uppercase font-bold'>{name}</p>}
+      {!valid && <p className=' text-rose-500 uppercase text-xs font-bold'>No account found</p>}
+      {required && <label>
+       <Text as="div" size="2" mb="1" weight="bold">
+        OTP
+       </Text>
+       <TextField.Input
+        onChange={(e) => setOTP(e.target.value)}
+        type='number'
+        required
+        minLength={6}
+        placeholder="Enter OTP"
+       />
+       {OTP.length < 6 && <div className="pt-2">
+        <span className=' text-rose-900 bg-rose-100 text-xs py-1 px-3 rounded-full'>Invalid OPT</span>
+       </div>}
+      </label>}
      </Flex>
 
      {valid && <Flex gap="3" mt="4" justify="end">
       <Dialog.Close>
-       <Button variant="soft" color="gray" type='reset'>
+       <Button onClick={() => setValid(false)} variant="soft" color="gray" type='reset'>
         Cancel
        </Button>
       </Dialog.Close>
@@ -120,7 +146,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
 
      {!valid && <Flex gap="3" mt="4" justify="end">
       <Dialog.Close>
-       <Button variant="soft" color="gray" type='reset'>
+       <Button onClick={() => setValid(false)} variant="soft" color="gray" type='reset'>
         Cancel
        </Button>
       </Dialog.Close>

@@ -2,7 +2,7 @@ import { Box, Card, Flex, Text } from "@radix-ui/themes";
 import { FaCheck, FaDollarSign } from "react-icons/fa6";
 const About = () => {
  return (
-  <div className=" p-4 grid lg:grid-cols-2">
+  <div className=" px-4 py-8 grid lg:grid-cols-2">
    <div className="">
     <img src="/bank.jpg" alt="bank" className=" mx-auto" />
    </div>
@@ -18,30 +18,30 @@ const About = () => {
     <div className="">
      <p className="py-5 font-bold text-red-600">About US</p>
      <p className=" pb-5 text-2xl font-bold">Financial Guidance for Every Stage of Life.</p>
-     <p className="pb-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis, suscipit you take action against fraud. See it the Security Center for and Mobile and Online Banking.</p>
+     <p className="pb-8">Financial guidance is essential at every stage of life, helping individuals navigate various milestones, challenges, and opportunities. </p>
      <div className=" flex gap-8 flex-col">
       <Card variant="ghost">
        <Flex gap="3" align="center">
-        <FaDollarSign className=" h-14 w-20 bg-red-200 rounded-full text-red-500 p-3" />
+        <FaDollarSign className=" h-14 w-14 bg-red-200 rounded-full text-red-500 p-3" />
         <Box>
          <Text as="div" size="2" weight="bold">
           Solution Focused
          </Text>
          <Text as="div" size="2" color="gray">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis tincidunt feugiat
+          We help customers identify their existing financial resources, such as income, savings, investments, and assets.
          </Text>
         </Box>
        </Flex>
       </Card>
       <Card variant="ghost">
        <Flex gap="3" align="center">
-        <FaCheck className=" h-14 w-20 bg-red-200 rounded-full text-red-500 p-3" />
+        <FaCheck className=" h-14 w-14 bg-red-200 rounded-full text-red-500 p-3" />
         <Box>
          <Text as="div" size="2" weight="bold">
           99.99% Success
          </Text>
          <Text as="div" size="2" color="gray">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis tincidunt feugiat
+          Excellence across various areas of operation, including transaction processing, security, customer service, risk management, compliance, technology, and financial performance.
          </Text>
         </Box>
        </Flex>

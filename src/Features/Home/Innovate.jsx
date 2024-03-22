@@ -4,7 +4,7 @@ import { FaClock, FaSquarePhone } from "react-icons/fa6";
 const Innovate = () => {
  return (
   <div className='flex flex-col gap-4 items-center justify-center sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:place-items-center'>
-   <Card size="2" style={{ maxWidth: 400 }}>
+   <Card size="2" style={{ maxWidth: 400 }} className=' shadow-md drop-shadow-md'>
 
     <FaCheckCircle className=' h-16 w-16 text-red-500' />
 
@@ -14,11 +14,11 @@ const Innovate = () => {
      </Text>
     </div>
     <Text as="p" size="4">
-     Tortor neque sed tellus estian eget dui id ante tristique more tristique dolor.
+     Ensure the protection of sensitive financial information and mitigate the risk of fraud across borders.
     </Text>
    </Card>
 
-   <Card size="2" style={{ maxWidth: 400 }}>
+   <Card size="2" style={{ maxWidth: 400 }} className=' shadow-md drop-shadow-md'>
 
     <FaSquarePhone className=' h-16 w-16 text-red-500' />
 
@@ -28,11 +28,11 @@ const Innovate = () => {
      </Text>
     </div>
     <Text as="p" size="4">
-     Tortor neque sed tellus estian eget dui id ante tristique more tristique dolor.
+     Our dedicated expert team is available around the clock to provide personalized support, guidance, and solutions to meet your needs, whenever you need them.
     </Text>
    </Card>
 
-   <Card size="2" style={{ maxWidth: 400 }}>
+   <Card size="2" style={{ maxWidth: 400 }} className=' shadow-md drop-shadow-md'>
 
     <FaArrowCircleDown className=' h-16 w-16 text-red-500' />
 
@@ -42,11 +42,11 @@ const Innovate = () => {
      </Text>
     </div>
     <Text as="p" size="4">
-     Tortor neque sed tellus estian eget dui id ante tristique more tristique dolor.
+     Experience unparalleled value with our bank&apos;s commitment to providing the lowest processing fees in the industry, helping you achieve your financial goals with minimal expenses.
     </Text>
    </Card>
 
-   <Card size="2" style={{ maxWidth: 400 }}>
+   <Card size="2" style={{ maxWidth: 400 }} className=' shadow-md drop-shadow-md'>
 
     <FaClock className=' h-16 w-16 text-red-500' />
 
@@ -56,7 +56,7 @@ const Innovate = () => {
      </Text>
     </div>
     <Text as="p" size="4">
-     Tortor neque sed tellus estian eget dui id ante tristique more tristique dolor.
+     Experience faster loan approvals with our streamlined processes, reducing wait times and allowing you to access funds when you need them most.
     </Text>
    </Card>
 

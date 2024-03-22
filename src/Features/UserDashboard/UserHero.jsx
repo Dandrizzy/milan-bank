@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
-import { HamburgerMenuIcon, Cross1Icon, } from '@radix-ui/react-icons';
+import { HamburgerMenuIcon, Cross1Icon, LockClosedIcon, } from '@radix-ui/react-icons';
 import { formatCurrency } from '@/Hooks/helpers';
 import { Avatar, Table } from '@radix-ui/themes';
 import TransferPopUp from '@/ui/TransferPopUp';
@@ -9,15 +9,17 @@ import { useGetApi } from '@/Hooks/Get/useGetApi';
 import { useGet } from '@/Hooks/Get/useGet';
 import Spinner from '@/ui/Spinner';
 import { useUser } from '../authentication/useUser';
+import { useLogout } from '../authentication/useLogout';
 
 const navigation = [
-  { name: 'Products', nav: '#' },
+  { name: 'Loan', nav: '#' },
   { name: 'Investments', nav: '#' },
   { name: 'Marketplace', nav: '#' },
   { name: 'Company', nav: '#' },
 ];
 
 export default function UserHero() {
+  const { isLoading, logout } = useLogout();
   const { fetch: fn } = useGetApi({ key: 'transactions' });
   const { fetch: transactions = [], isFetching: isFetchingTransaction } = useGet({ key: ['transaction'], fn });
   const { user } = useUser();
@@ -25,7 +27,7 @@ export default function UserHero() {
   const { fetch: fetchFn } = useGetApi({ key: 'accounts' });
   const { fetch: acc, isFetching } = useGet({ key: ['account', user?.id], fn: fetchFn });
 
-  if (isFetching || isFetchingTransaction) return <Spinner />;
+  if (isFetching || isFetchingTransaction || isLoading) return <Spinner />;
 
   const currentUser = acc?.find(ac => ac?.userId === user?.id);
   const userTransactions = transactions.filter(t => t.userId === user?.id);
@@ -56,16 +58,16 @@ export default function UserHero() {
               <HamburgerMenuIcon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <div className="hidden lg:flex lg:gap-x-12">
+          {/* <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
               <span key={item.name} className="text-sm font-semibold leading-6 text-gray-900">
                 {item.name}
               </span>
             ))}
-          </div>
+          </div> */}
           <div className="hidden lg:flex lg:flex-1 lg:justify-end" >
-            <span className="text-sm font-semibold leading-6 text-gray-900">
-              Log in <span aria-hidden="true">&rarr;</span>
+            <span onClick={() => (logout())} className="text-sm font-semibold leading-6 text-red-900 cursor-pointer">
+              Log out <span aria-hidden="true">&rarr;</span>
             </span>
           </div>
         </nav>
@@ -94,22 +96,22 @@ export default function UserHero() {
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
                   {navigation.map((item) => (
-                    <a
+                    <div
                       key={item.name}
-                      href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                      className="-mx-3 flex items-center justify-between cursor-not-allowed rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-600 hover:bg-gray-50"
                     >
-                      {item.name}
-                    </a>
+                      <div className="">{item.name}</div>
+                      <div className=""><LockClosedIcon /></div>
+                    </div>
                   ))}
                 </div>
                 <div className="py-6">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  <span
+                    onClick={() => (logout())}
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-red-900 hover:bg-red-50 cursor-pointer"
                   >
-                    Log in
-                  </a>
+                    Log out
+                  </span>
                 </div>
               </div>
             </div>
@@ -130,7 +132,8 @@ export default function UserHero() {
             }}
           />
         </div>
-        <div className="max-w-2xl sm:py-48 lg:py-56">
+
+        <div className="max-w-2xl ">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
           </div>
           <div className="grid grid-cols-2 gap-2 text-neutral-100 ">
@@ -192,6 +195,7 @@ export default function UserHero() {
             </div>
           </div>
         </div>
+
         <div
           className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
           aria-hidden="true"

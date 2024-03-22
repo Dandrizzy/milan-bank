@@ -5,7 +5,7 @@ const Footer = () => {
   <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-16 p-4 bg-neutral-900 text-neutral-100">
    <div className="">
     <div className=" text-2xl flex items-center gap-2"><FaBuilding /><span className=" font-bold">Metro</span>Bank</div>
-    <p className=" py-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi esse, itaque nobis numquam mollitia repellat necessitatibus pariatur. Sit ipsam tempore asperiores vitae accusamus.</p>
+    <p className=" py-4">Metro Bank is a full-service financial institution committed to providing personalized banking solutions to individuals, businesses, and communities. With a focus on customer service, innovation, and community involvement, Protea Bank strives to be a trusted partner in helping customers achieve their financial goals.</p>
     <div className="flex items-center gap-4">
      <FaFacebookF className=" w-10 h-10 p-3 bg-neutral-500 rounded-full hover:bg-red-600 transition-all duration-500" />
      <FaTwitter className=" w-10 h-10 p-3 bg-neutral-500 rounded-full hover:bg-red-600 transition-all duration-500" />

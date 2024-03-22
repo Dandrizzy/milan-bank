@@ -10,7 +10,7 @@ const rotate = keyframes`
 const SpinnerMini = styled(BiLoaderAlt)`
   width: 2rem;
   height: 2rem;
-  color:   rgb(59 130 246);
+  color:   rgb(159 18 57);
   margin: 0 auto;
   animation: ${rotate} 1.5s infinite linear;
 `;

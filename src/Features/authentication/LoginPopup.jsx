@@ -11,7 +11,6 @@ function LoginPopup() {
  const { login, isLoading } = useLogin({ route: '/dashboard' });
 
  const onSubmit = (data) => {
-  console.log(data);
   if (!data) return;
   login(
    data,
