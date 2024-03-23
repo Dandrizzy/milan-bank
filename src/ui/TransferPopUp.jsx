@@ -52,7 +52,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
 
  const onClick = () => {
   const amount = +getValues('amount');
-  if (amount > 1000) setRequired(true);
+  if (amount > 10000) setRequired(true);
   const accounts = acc?.find(ac => ac.account === +getValues('account'));
   if (!accounts) return;
   if (accounts) {

@@ -31,7 +31,6 @@ export default function UserHero() {
 
   const currentUser = acc?.find(ac => ac?.userId === user?.id);
   const userTransactions = transactions.filter(t => t.userId === user?.id);
-  console.log(userTransactions);
 
 
   return (

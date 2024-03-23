@@ -17,7 +17,8 @@ function ProtectedRoute({ children }) {
   const navigate = useNavigate();
 
   // 1. Load the authenticated user
-  const { isLoading, isAuthenticated } = useUser();
+  const { user, isLoading, isAuthenticated } = useUser();
+  console.log(user);
 
   // 2. If there is NO authenticated user, redirect to the /login
   useEffect(
@@ -38,8 +39,11 @@ function ProtectedRoute({ children }) {
       </FullPage>
     );
 
+
   // 4. If there IS a user, render the app
+  if (user?.email === 'admin@nordrakreds.com') return navigate('/admin');
   if (isAuthenticated) return children;
 }
+
 
 export default ProtectedRoute;

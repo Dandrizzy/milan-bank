@@ -13,6 +13,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboard from "./Pages/AdminDashboard";
 import AdminUser from "./Pages/AdminUser";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import AdminRoute from "./Features/authentication/AdminRoute";
 const Home = lazy(() => import("./Pages/Home"));
 
 
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
     ]
   },
   {
-    element: <AdminLayout />,
+    element: <AdminRoute><AdminLayout /></AdminRoute>,
     errorElement: <Error />,
     children: [
       {

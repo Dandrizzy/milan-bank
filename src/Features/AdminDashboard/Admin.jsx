@@ -7,6 +7,7 @@ import CreateUserPopUp from '@/ui/CreateUserPopup';
 import { useUsers } from '../AdminAuth/useUsers';
 import Spinner from '@/ui/Spinner';
 import { useNavigate } from 'react-router-dom';
+import { useLogout } from '../authentication/useLogout';
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -16,10 +17,11 @@ const navigation = [
 ];
 
 export default function Admin() {
+  const { logout, isLoading: isLoggingOff } = useLogout();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { data: users, isLoading } = useUsers();
-  if (isLoading) return <Spinner />;
+  if (isLoading || isLoggingOff) return <Spinner />;
   return (
     <div className="bg-white pt-8">
       <header className="absolute inset-x-0 top-0 z-50">
@@ -46,15 +48,15 @@ export default function Admin() {
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+              <div key={item.name} className="text-sm font-semibold leading-6 text-gray-900">
                 {item.name}
-              </a>
+              </div>
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-              Log in <span aria-hidden="true">&rarr;</span>
-            </a>
+            <span onClick={logout} className="text-sm font-semibold leading-6 text-gray-900">
+              Log out <span aria-hidden="true">&rarr;</span>
+            </span>
           </div>
         </nav>
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -82,22 +84,22 @@ export default function Admin() {
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
                   {navigation.map((item) => (
-                    <a
+                    <div
                       key={item.name}
-                      href={item.href}
+
                       className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                     >
                       {item.name}
-                    </a>
+                    </div>
                   ))}
                 </div>
                 <div className="py-6">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  <span
+                    onClick={logout}
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-red-900 hover:bg-red-50"
                   >
-                    Log in
-                  </a>
+                    Log out
+                  </span>
                 </div>
               </div>
             </div>
