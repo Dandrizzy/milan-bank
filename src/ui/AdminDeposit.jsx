@@ -63,6 +63,29 @@ const AdminDeposit = ({ className = 'w-full' }) => {
       </label>
       <label>
        <Text as="div" size="2" mb="1" weight="bold">
+        Bank Name
+       </Text>
+       <TextField.Input
+        type='text'
+        required
+        {...register('bankName')} id='bankName'
+        placeholder="Enter bank name to deposit"
+       />
+      </label>
+      <label>
+       <Text as="div" size="2" mb="1" weight="bold">
+        Account Number
+       </Text>
+       <TextField.Input
+        type='number'
+        minLength={10}
+        required
+        {...register('account')} id='account'
+        placeholder="Enter amount to deposit"
+       />
+      </label>
+      <label>
+       <Text as="div" size="2" mb="1" weight="bold">
         Sender&apos;s full name
        </Text>
        <TextField.Input

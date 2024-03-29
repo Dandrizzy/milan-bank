@@ -14,6 +14,7 @@ import AdminDashboard from "./Pages/AdminDashboard";
 import AdminUser from "./Pages/AdminUser";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import AdminRoute from "./Features/authentication/AdminRoute";
+import Calender from "./ui/Calender";
 const Home = lazy(() => import("./Pages/Home"));
 
 
@@ -35,6 +36,11 @@ const router = createBrowserRouter([
     path: '/'
   },
   {
+    element: <Calender />,
+    errorElement: <Error />,
+    path: '/calendar'
+  },
+  {
     element: <ProtectedRoute><DashboardLayout /></ProtectedRoute>,
     errorElement: <Error />,
     children: [
@@ -42,7 +48,6 @@ const router = createBrowserRouter([
         path: '/dashboard',
         element: <Dashboard />
       },
-
 
     ]
   },

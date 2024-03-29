@@ -13,6 +13,7 @@ import { Button, Flex, Table, Text, TextField } from "@radix-ui/themes";
 import { useForm } from "react-hook-form";
 import { MdDeleteForever } from "react-icons/md";
 import { Form, useNavigate, useParams } from "react-router-dom";
+import AdminEdit from "./AdminEdit";
 
 const AdminUsers = () => {
  const { userId } = useParams();
@@ -66,7 +67,11 @@ const AdminUsers = () => {
       </Text>
       <TextField.Input
        disabled={accounts !== undefined} className=" disabled:cursor-not-allowed"
-       {...register('account')} id='account' required
+       {...register('account', {
+        required: 'Required',
+        minLength: 10
+       })} id='account' required
+       minLength={10}
        defaultValue={accounts === undefined ? '' : accounts?.account}
        placeholder="Enter account number"
        type="number"
@@ -152,10 +157,12 @@ const AdminUsers = () => {
      {transactions.reverse().map(transaction => <Table.Body key={transaction.id}>
       <Table.Row>
        <Table.RowHeaderCell>
-        <div className=" grid gap-1">
-         <p className="">{transaction.name}</p>
-         <span className=" text-xs text-neutral-500">{formatDate(transaction.created_at)}, Checking</span>
-        </div>
+        <AdminEdit id={transaction.id}>
+         <div className=" grid gap-1">
+          <p className="">{transaction.name}</p>
+          <span className=" text-xs text-neutral-500">{formatDate(transaction.created_at)}, Checking</span>
+         </div>
+        </AdminEdit>
        </Table.RowHeaderCell>
        <Table.Cell className={transaction.type !== 'deposit' ? ' text-right text-red-400' : 'text-right text-green-500'}>{transaction.type !== 'deposit' ? '-' : '+'}{formatCurrency({ value: transaction?.amount, currency: accounts?.currency })}</Table.Cell>
       </Table.Row>

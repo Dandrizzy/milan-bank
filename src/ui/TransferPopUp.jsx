@@ -93,7 +93,29 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
       </label>
       <label>
        <Text as="div" size="2" mb="1" weight="bold">
-        Account
+        Bank Name
+       </Text>
+       <TextField.Input
+        type='text'
+        required
+        minLength={3}
+        {...register('bankName', {
+         required: 'This field is required',
+         minLength: {
+          value: 10,
+          message: 'Enter a valid bank'
+         }
+        })} id='bankName'
+        placeholder="Enter bank name"
+       />
+       {errors?.account?.message && <div className="pt-2">
+        <span className=' text-rose-800 bg-rose-200 text-xs py-2 px-4 rounded-full'>{errors?.account?.message}</span>
+       </div>}
+
+      </label>
+      <label>
+       <Text as="div" size="2" mb="1" weight="bold">
+        Account Number
        </Text>
        <TextField.Input
         type='number'

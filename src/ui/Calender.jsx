@@ -3,7 +3,7 @@ import moment from 'moment';
 
 const localizer = momentLocalizer(moment);
 
-const Calendars = () => (
+const Calender = () => (
  <div>
   <Calendar
    localizer={localizer}
@@ -16,4 +16,4 @@ const Calendars = () => (
 );
 
 
-export default Calendars;
+export default Calender;
