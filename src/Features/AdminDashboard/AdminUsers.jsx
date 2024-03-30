@@ -157,7 +157,7 @@ const AdminUsers = () => {
      {transactions.reverse().map(transaction => <Table.Body key={transaction.id}>
       <Table.Row>
        <Table.RowHeaderCell>
-        <AdminEdit id={transaction.id}>
+        <AdminEdit transaction={transaction}>
          <div className=" grid gap-1">
           <p className="">{transaction.name}</p>
           <span className=" text-xs text-neutral-500">{formatDate(transaction.created_at)}, Checking</span>

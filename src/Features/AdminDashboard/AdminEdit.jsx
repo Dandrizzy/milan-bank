@@ -1,11 +1,20 @@
+import { useEdit } from "@/Hooks/Edit/useEdit";
+import { useEditApi } from "@/Hooks/Edit/useEditApi";
+import Spinner from "@/ui/Spinner";
 import { Dialog, Button, Flex, Text, TextField } from "@radix-ui/themes";
 import { useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
 
-const AdminEdit = ({ id, children }) => {
+const AdminEdit = ({ transaction, children }) => {
+ const { editFn: fn } = useEditApi({ key: 'transactions', id: transaction.id });
+ const { edit, isEditing } = useEdit({ key: ['transaction'], fn });
+ const x = transaction.created_at.split('.').at(0);
+ const y = transaction.created_at.split('+').at(1);
  const { register, handleSubmit } = useForm();
+ if (isEditing) return <Spinner />;
  const onSubmit = data => {
-  console.log(data);
+  const update = { ...data, created_at: data.created_at + '+' + y };
+  edit({ ...transaction, ...update });
  };
  return (
   <div>
@@ -17,9 +26,9 @@ const AdminEdit = ({ id, children }) => {
     </Dialog.Trigger>
 
     <Dialog.Content >
-     <Dialog.Title>Edit profile</Dialog.Title>
+     <Dialog.Title>Edit Transaction</Dialog.Title>
      <Dialog.Description size="2" mb="4">
-      {id}
+      {transaction.id}
      </Dialog.Description>
 
      <Form onSubmit={handleSubmit(onSubmit)}>
@@ -30,6 +39,7 @@ const AdminEdit = ({ id, children }) => {
         </Text>
         <TextField.Input
          type='number'
+         defaultValue={transaction.amount}
          required
          {...register('amount')} id='amount'
          placeholder="Enter amount to deposit"
@@ -40,6 +50,7 @@ const AdminEdit = ({ id, children }) => {
          Bank Name
         </Text>
         <TextField.Input
+         defaultValue={transaction.bankName ?? 'City Bank'}
          type='text'
          required
          {...register('bankName')} id='bankName'
@@ -51,6 +62,7 @@ const AdminEdit = ({ id, children }) => {
          Account Number
         </Text>
         <TextField.Input
+         defaultValue={transaction.account}
          type='number'
          minLength={10}
          required
@@ -63,8 +75,21 @@ const AdminEdit = ({ id, children }) => {
          Sender&apos;s full name
         </Text>
         <TextField.Input
+         defaultValue={transaction.name}
          required
          {...register('name')} id='name'
+         placeholder="Enter sender's name"
+        />
+       </label>
+       <label>
+        <Text as="div" size="2" mb="1" weight="bold">
+         Date
+        </Text>
+        <TextField.Input
+         type="datetime-local"
+         defaultValue={x}
+         required
+         {...register('created_at')} id='created_at'
          placeholder="Enter sender's name"
         />
        </label>

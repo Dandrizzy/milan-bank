@@ -27,7 +27,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
  const { fetch: otp, isFetching: isFetchingOtp } = useGet({ key: ['otp'], fn: otpFn });
  const acn = acc?.find(ac => ac?.userId === userId);
  const { editFn } = useEditApi({ key: 'accounts', id: acn?.id });
- const { edit, isEditing } = useEdit({ key: ['accounts'], fn: editFn });
+ const { edit, isEditing } = useEdit({ key: ['account'], fn: editFn });
 
  if (isFetching || isFetchingOtp) return <Spinner />;
 

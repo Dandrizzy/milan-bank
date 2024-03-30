@@ -18,10 +18,10 @@ const AdminDeposit = ({ className = 'w-full' }) => {
  const { create: fn } = useCreateApi({ key: 'transactions' });
  const { create, isCreating } = useCreate({ fn, key: ['transaction'] });
  const { fetch: fetchFn } = useGetApi({ key: 'accounts' });
- const { fetch: acc, isFetching } = useGet({ key: ['accounts', userId], fn: fetchFn });
+ const { fetch: acc, isFetching } = useGet({ key: ['account', userId], fn: fetchFn });
  const acn = acc?.find(ac => ac?.userId === userId);
  const { editFn } = useEditApi({ key: 'accounts', id: acn?.id });
- const { edit, isEditing } = useEdit({ key: ['accounts'], fn: editFn });
+ const { edit, isEditing } = useEdit({ key: ['account'], fn: editFn });
 
  if (isFetching) return <Spinner />;
  const bal = acc?.find(ac => ac?.userId === userId)?.checking;

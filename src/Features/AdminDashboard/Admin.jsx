@@ -8,6 +8,7 @@ import { useUsers } from '../AdminAuth/useUsers';
 import Spinner from '@/ui/Spinner';
 import { useNavigate } from 'react-router-dom';
 import { useLogout } from '../authentication/useLogout';
+import OTPPopup from '../authentication/Admin/OTPPopup';
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -120,8 +121,9 @@ export default function Admin() {
             <div className=" text-right">
               <Avatar fallback="A" radius='full' />
             </div>
-            <div className="">
+            <div className=" flex items-center gap-3">
               <CreateUserPopUp />
+              <OTPPopup />
             </div>
 
             <div className=" col-span-2 mt-4">

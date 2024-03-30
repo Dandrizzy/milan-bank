@@ -4,7 +4,7 @@ const Footer = () => {
  return (
   <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-16 p-4 bg-neutral-900 text-neutral-100">
    <div className="">
-    <div className=" text-2xl flex items-center gap-2"><FaBuilding /><span className=" font-bold">Metro</span>Bank</div>
+    <div className=" text-2xl flex items-center gap-2"><FaBuilding /><span className=" font-bold">Nordra Kreds</span>Bank</div>
     <p className=" py-4">Nordra Kreds is a full-service financial institution committed to providing personalized banking solutions to individuals, businesses, and communities. With a focus on customer service, innovation, and community involvement, Nordra Kreds strives to be a trusted partner in helping customers achieve their financial goals.</p>
     <div className="flex items-center gap-4">
      <FaFacebookF className=" w-10 h-10 p-3 bg-neutral-500 rounded-full hover:bg-red-600 transition-all duration-500" />
