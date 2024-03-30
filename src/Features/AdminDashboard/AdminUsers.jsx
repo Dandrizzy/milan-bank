@@ -24,7 +24,7 @@ const AdminUsers = () => {
  const { data: transactions = [], isLoading: isFetching } = useGetTransaction({ id: userId });
  const { fetch: fetchFn } = useGetApi({ key: 'accounts' });
  const { fetch: acc, isFetching: isFetchingAccount } = useGet({ key: ['account', userId], fn: fetchFn });
- const accounts = acc.find(ac => ac.userId === userId);
+ const accounts = acc?.find(ac => ac.userId === userId);
 
  const { register, handleSubmit } = useForm();
  const { create: createFn } = useCreateApi({ key: 'accounts' });
@@ -32,7 +32,7 @@ const AdminUsers = () => {
  const { editFn } = useEditApi({ key: 'accounts', id: accounts?.id });
  const { edit, isEditing } = useEdit({ key: ['accounts'], fn: editFn });
 
- const [isRestricted, setIsRestricted] = useState(accounts.restricted);
+ const [isRestricted, setIsRestricted] = useState(accounts?.restricted);
 
  if (isFetching || isFetchingAccount) return <Spinner />;
  const onSubmit = data => {
