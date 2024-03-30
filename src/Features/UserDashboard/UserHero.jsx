@@ -13,6 +13,7 @@ import { useLogout } from '../authentication/useLogout';
 import { useNavigate } from 'react-router-dom';
 import TransactionList from '@/ui/TransactionList';
 import QuickAccess from '@/ui/QuickAccess';
+import CalloutCard from '@/ui/Callout';
 
 const navigation = [
   { name: 'Loan', nav: '#' },
@@ -35,7 +36,6 @@ export default function UserHero() {
 
   const currentUser = acc?.find(ac => ac?.userId === user?.id);
   const userTransactions = transactions.filter(t => t.userId === user?.id);
-
 
   return (
     <div className="bg-white pt-8">
@@ -107,8 +107,10 @@ export default function UserHero() {
           </Dialog.Panel>
         </Dialog>
       </header>
-
       <div className="relative isolate px-6 pt-14 lg:px-8">
+        {currentUser.restricted && <div className=" pb-4">
+          <CalloutCard />
+        </div>}
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"

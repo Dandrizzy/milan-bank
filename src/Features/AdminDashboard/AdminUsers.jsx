@@ -14,6 +14,9 @@ import { useForm } from "react-hook-form";
 import { MdDeleteForever } from "react-icons/md";
 import { Form, useNavigate, useParams } from "react-router-dom";
 import AdminEdit from "./AdminEdit";
+import { useState } from "react";
+import { useEditApi } from "@/Hooks/Edit/useEditApi";
+import { useEdit } from "@/Hooks/Edit/useEdit";
 
 const AdminUsers = () => {
  const { userId } = useParams();
@@ -21,17 +24,26 @@ const AdminUsers = () => {
  const { data: transactions = [], isLoading: isFetching } = useGetTransaction({ id: userId });
  const { fetch: fetchFn } = useGetApi({ key: 'accounts' });
  const { fetch: acc, isFetching: isFetchingAccount } = useGet({ key: ['account', userId], fn: fetchFn });
+ const accounts = acc.find(ac => ac.userId === userId);
 
  const { register, handleSubmit } = useForm();
  const { create: createFn } = useCreateApi({ key: 'accounts' });
  const { create, isCreating } = useCreate({ fn: createFn, key: ['account'] });
+ const { editFn } = useEditApi({ key: 'accounts', id: accounts?.id });
+ const { edit, isEditing } = useEdit({ key: ['accounts'], fn: editFn });
+
+ const [isRestricted, setIsRestricted] = useState(accounts.restricted);
 
  if (isFetching || isFetchingAccount) return <Spinner />;
  const onSubmit = data => {
   create({ ...data, admin: 'milan', userId });
  };
 
- const accounts = acc.find(ac => ac.userId === userId);
+
+ const restrict = () => {
+  setIsRestricted(x => !x);
+  edit({ ...accounts, restricted: isRestricted });
+ };
 
  return (
   <div className=" p-4">
@@ -173,17 +185,18 @@ const AdminUsers = () => {
 
    </div>
 
-   <Flex gap="3" mt="4" justify="end">
+   {isEditing ? <SpinnerMini /> : <Flex gap="2" mt="6" wrap={true} justify="center">
 
 
     <AdminDeposit className="" />
     <TransferPopUp className="" color="green" userId={userId} />
+    <Button color="yellow" onClick={restrict} variant="surface">Restrict</Button>
     <Button><MdDeleteForever />Delete</Button>
     <Button variant="soft" color="gray" onClick={() => navigate('/admin')}>
      &larr; Back
     </Button>
 
-   </Flex>
+   </Flex>}
 
   </div>
 

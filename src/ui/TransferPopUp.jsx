@@ -168,7 +168,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
        </Button>
       </Dialog.Close>
 
-      <Button color='green' type='submit'>
+      <Button color='green' disabled={acn.restricted || isEditing} type='submit'>
        {isCreating || isEditing ? <SpinnerMini /> : 'Send'}
       </Button>
      </Flex>}
@@ -182,7 +182,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
         Cancel
        </Button>
       </Dialog.Close>
-      <Button color='green' type='button' onClick={handleSubmit(onClick)}>
+      <Button color='green' type='button' disabled={acn.restricted || isEditing} onClick={handleSubmit(onClick)}>
        {isCreating ? <SpinnerMini /> : 'Next'}
       </Button>
      </Flex>}
