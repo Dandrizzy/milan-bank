@@ -12,7 +12,7 @@ export default function Contact() {
   const [agreed, setAgreed] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const submit = data => {
-    console.log({ ...data, agreed });
+    ({ ...data, agreed });
     reset();
   };
 

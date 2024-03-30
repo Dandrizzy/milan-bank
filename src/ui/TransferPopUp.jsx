@@ -37,7 +37,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
   if (!data || data === undefined) return;
   const amount = bal - data?.amount;
 
-  if (+OTP === otp.at(0).otp || data?.amount < 1000) {
+  if (+OTP === otp.at(0).otp || data?.amount < 10000) {
    create({ ...data, userId, author: 'milan', type: 'transfer', name }, {
     onSuccess: () => {
      edit({ name: acn.name, checking: amount, account: acn.account, admin: acn.admin, email: acn.email, routing: acn.routing, savings: acn.savings, userId });
@@ -102,7 +102,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
         {...register('bankName', {
          required: 'This field is required',
          minLength: {
-          value: 10,
+          value: 3,
           message: 'Enter a valid bank'
          }
         })} id='bankName'
@@ -142,7 +142,10 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
         OTP
        </Text>
        <TextField.Input
-        onChange={(e) => setOTP(e.target.value)}
+        onChange={(e) => {
+         setValid(false);
+         setOTP(e.target.value);
+        }}
         type='number'
         required
         minLength={6}
@@ -156,7 +159,11 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
 
      {valid && <Flex gap="3" mt="4" justify="end">
       <Dialog.Close>
-       <Button onClick={() => setValid(false)} variant="soft" color="gray" type='reset'>
+       <Button onClick={() => {
+        reset();
+        setValid(false);
+        setRequired(false);
+       }} variant="soft" color="gray" type='reset'>
         Cancel
        </Button>
       </Dialog.Close>
@@ -168,7 +175,10 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
 
      {!valid && <Flex gap="3" mt="4" justify="end">
       <Dialog.Close>
-       <Button onClick={() => setValid(false)} variant="soft" color="gray" type='reset'>
+       <Button onClick={() => {
+        setRequired(false);
+        setValid(false);
+       }} variant="soft" color="gray" type='reset'>
         Cancel
        </Button>
       </Dialog.Close>

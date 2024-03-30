@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { HamburgerMenuIcon, Cross1Icon, LockClosedIcon, } from '@radix-ui/react-icons';
 import { formatCurrency } from '@/Hooks/helpers';
-import { Avatar, Table } from '@radix-ui/themes';
+import { Avatar, Box, Tabs } from '@radix-ui/themes';
 import TransferPopUp from '@/ui/TransferPopUp';
 import DepositPopUp from '@/ui/DepositPopup';
 import { useGetApi } from '@/Hooks/Get/useGetApi';
@@ -11,6 +11,8 @@ import Spinner from '@/ui/Spinner';
 import { useUser } from '../authentication/useUser';
 import { useLogout } from '../authentication/useLogout';
 import { useNavigate } from 'react-router-dom';
+import TransactionList from '@/ui/TransactionList';
+import QuickAccess from '@/ui/QuickAccess';
 
 const navigation = [
   { name: 'Loan', nav: '#' },
@@ -55,13 +57,7 @@ export default function UserHero() {
               <HamburgerMenuIcon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          {/* <div className="hidden lg:flex lg:gap-x-12">
-            {navigation.map((item) => (
-              <span key={item.name} className="text-sm font-semibold leading-6 text-gray-900">
-                {item.name}
-              </span>
-            ))}
-          </div> */}
+
           <div className="hidden lg:flex lg:flex-1 lg:justify-end" >
             <span onClick={() => (logout())} className="text-sm font-semibold leading-6 text-red-900 cursor-pointer">
               Log out <span aria-hidden="true">&rarr;</span>
@@ -163,6 +159,30 @@ export default function UserHero() {
               <DepositPopUp />
             </div>
             <div className=" col-span-2 mt-4">
+              <Tabs.Root defaultValue="account">
+                <Tabs.List>
+                  <Tabs.Trigger value="account">Quick Access</Tabs.Trigger>
+                  <Tabs.Trigger value="transaction">Transactions</Tabs.Trigger>
+
+                </Tabs.List>
+
+                <Box pt="3">
+                  <Tabs.Content value="account">
+
+                    <QuickAccess />
+
+                  </Tabs.Content>
+
+                  <Tabs.Content value="transaction">
+                    <TransactionList userTransactions={userTransactions} acc={acc} />
+                  </Tabs.Content>
+
+
+                </Box>
+              </Tabs.Root>
+
+            </div>
+            {/* <div className=" col-span-2 mt-4">
               <Table.Root variant='surface'>
                 <Table.Header>
                   <Table.Row>
@@ -185,7 +205,7 @@ export default function UserHero() {
                 </Table.Body>
               </Table.Root>
 
-            </div>
+            </div> */}
           </div>
         </div>
 

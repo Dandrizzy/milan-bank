@@ -17,7 +17,7 @@ async function editFn(msg = ["hello"], id) {
     return;
   }
 
-  console.log('Array in Supabase updated successfully:', data);
+  ('Array in Supabase updated successfully:', data);
   return {data}
 }
 
