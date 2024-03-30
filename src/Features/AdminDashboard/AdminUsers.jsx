@@ -17,6 +17,7 @@ import AdminEdit from "./AdminEdit";
 import { useState } from "react";
 import { useEditApi } from "@/Hooks/Edit/useEditApi";
 import { useEdit } from "@/Hooks/Edit/useEdit";
+import CalloutCard from "@/ui/Callout";
 
 const AdminUsers = () => {
  const { userId } = useParams();
@@ -47,6 +48,8 @@ const AdminUsers = () => {
 
  return (
   <div className=" p-4">
+
+   {accounts.restricted && <CalloutCard />}
 
    <Form >
     <Flex direction="column" gap="3">
@@ -185,12 +188,12 @@ const AdminUsers = () => {
 
    </div>
 
-   {isEditing ? <SpinnerMini /> : <Flex gap="2" mt="6" wrap={true} justify="center">
+   {isEditing ? <SpinnerMini /> : <Flex gap="2" mt="6" wrap='wrap' justify="center">
 
 
     <AdminDeposit className="" />
     <TransferPopUp className="" color="green" userId={userId} />
-    <Button color="yellow" onClick={restrict} variant="surface">Restrict</Button>
+    <Button color="yellow" onClick={restrict} variant="surface">{accounts.restricted ? 'Un-restrict' : 'Restrict'}</Button>
     <Button><MdDeleteForever />Delete</Button>
     <Button variant="soft" color="gray" onClick={() => navigate('/admin')}>
      &larr; Back
