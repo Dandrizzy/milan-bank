@@ -4,6 +4,7 @@ import { Button, Dialog, Flex, TextField, Text } from '@radix-ui/themes';
 import { useForm } from 'react-hook-form';
 import { Form } from 'react-router-dom';
 import SpinnerMini from './SpinnerMini';
+import toast from 'react-hot-toast';
 
 const CreateUserPopUp = () => {
   const { signup, isLoading } = useSignup();
@@ -13,7 +14,14 @@ const CreateUserPopUp = () => {
     signup(
       { fullName, email, password },
       {
-        onSuccess: () => reset(),
+        onSuccess: () => {
+          toast.success('Successfully created verify your mail');
+          reset();
+        },
+        onError: () => {
+          toast.error('There was an error');
+          reset();
+        },
       }
     );
   }

@@ -24,8 +24,8 @@ const AdminUsers = () => {
  const navigate = useNavigate();
  const { data: transactions = [], isLoading: isFetching } = useGetTransaction({ id: userId });
  const { fetch: fetchFn } = useGetApi({ key: 'accounts' });
- const { fetch: acc, isFetching: isFetchingAccount } = useGet({ key: ['account', userId], fn: fetchFn });
- const accounts = acc?.find(ac => ac.userId === userId);
+ const { fetch: acc = [], isFetching: isFetchingAccount } = useGet({ key: ['account', userId], fn: fetchFn });
+ const accounts = acc?.find(ac => ac.userId === userId) && [];
 
  const { register, handleSubmit } = useForm();
  const { create: createFn } = useCreateApi({ key: 'accounts' });
@@ -34,8 +34,11 @@ const AdminUsers = () => {
  const { edit, isEditing } = useEdit({ key: ['accounts'], fn: editFn });
 
  const [isRestricted, setIsRestricted] = useState(accounts?.restricted);
-
+ console.log(accounts);
  if (isFetching || isFetchingAccount) return <Spinner />;
+
+
+
  const onSubmit = data => {
   create({ ...data, admin: 'milan', userId });
  };
@@ -49,7 +52,7 @@ const AdminUsers = () => {
  return (
   <div className=" p-4">
 
-   {accounts.restricted && <CalloutCard />}
+   {accounts?.restricted && <CalloutCard />}
 
    <Form >
     <Flex direction="column" gap="3">
@@ -193,7 +196,7 @@ const AdminUsers = () => {
 
     <AdminDeposit className="" />
     <TransferPopUp className="" color="green" userId={userId} />
-    <Button color="yellow" onClick={restrict} variant="surface">{accounts.restricted ? 'Un-restrict' : 'Restrict'}</Button>
+    <Button color="yellow" onClick={restrict} variant="surface">{accounts?.restricted ? 'Un-restrict' : 'Restrict'}</Button>
     <Button><MdDeleteForever />Delete</Button>
     <Button variant="soft" color="gray" onClick={() => navigate('/admin')}>
      &larr; Back

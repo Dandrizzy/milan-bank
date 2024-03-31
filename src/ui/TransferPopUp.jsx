@@ -40,7 +40,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
   if (+OTP === otp.at(0).otp || data?.amount < 10000) {
    create({ ...data, userId, author: 'milan', type: 'transfer', name }, {
     onSuccess: () => {
-     edit({ name: acn.name, checking: amount, account: acn.account, admin: acn.admin, email: acn.email, routing: acn.routing, savings: acn.savings, userId });
+     edit({ name: acn?.name, checking: amount, account: acn?.account, admin: acn?.admin, email: acn?.email, routing: acn?.routing, savings: acn?.savings, userId });
      setValid(false);
      setRequired(false);
      setName(null);
@@ -168,7 +168,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
        </Button>
       </Dialog.Close>
 
-      <Button color='green' disabled={acn.restricted || isEditing} type='submit'>
+      <Button color='green' disabled={acn?.restricted || isEditing} type='submit'>
        {isCreating || isEditing ? <SpinnerMini /> : 'Send'}
       </Button>
      </Flex>}
@@ -182,7 +182,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
         Cancel
        </Button>
       </Dialog.Close>
-      <Button color='green' type='button' disabled={acn.restricted || isEditing} onClick={handleSubmit(onClick)}>
+      <Button color='green' type='button' disabled={acn?.restricted || isEditing} onClick={handleSubmit(onClick)}>
        {isCreating ? <SpinnerMini /> : 'Next'}
       </Button>
      </Flex>}
