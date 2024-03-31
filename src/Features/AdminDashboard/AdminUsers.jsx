@@ -25,7 +25,7 @@ const AdminUsers = () => {
  const { data: transactions = [], isLoading: isFetching } = useGetTransaction({ id: userId });
  const { fetch: fetchFn } = useGetApi({ key: 'accounts' });
  const { fetch: acc = [], isFetching: isFetchingAccount } = useGet({ key: ['account', userId], fn: fetchFn });
- const accounts = acc?.find(ac => ac.userId === userId) && [];
+ const accounts = acc?.find(ac => ac.userId === userId);
 
  const { register, handleSubmit } = useForm();
  const { create: createFn } = useCreateApi({ key: 'accounts' });
@@ -34,7 +34,7 @@ const AdminUsers = () => {
  const { edit, isEditing } = useEdit({ key: ['accounts'], fn: editFn });
 
  const [isRestricted, setIsRestricted] = useState(accounts?.restricted);
- console.log(accounts);
+
  if (isFetching || isFetchingAccount) return <Spinner />;
 
 
@@ -134,7 +134,7 @@ const AdminUsers = () => {
       <Text as="div" size="2" mb="1" weight="bold" className=' text-neutral-800'>
        Currency
       </Text>
-      <select disabled={accounts?.currency !== undefined} defaultValue={accounts === undefined ? 'USD' : accounts?.currency} {...register('currency')} id='currency' className=" rounded-full disabled:cursor-not-allowed disabled:bg-neutral-200" >
+      <select disabled={accounts?.currency !== undefined} defaultValue={accounts === undefined ? 'USD' : accounts?.currency} {...register('currency')} id='currency' className=" rounded-full disabled:cursor-not-allowed border-[1.5px] border-neutral-300 disabled:bg-neutral-200/80" >
 
 
 
