@@ -8,7 +8,7 @@ const CalloutCard = () => {
     <ExclamationTriangleIcon />
    </Callout.Icon>
    <Callout.Text>
-    Your Account has been restricted please contact the bank.
+    Your Account has been restricted please contact the bank at support@nordrakreds.com.
    </Callout.Text>
   </Callout.Root>
 
