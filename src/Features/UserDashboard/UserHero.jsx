@@ -124,7 +124,7 @@ export default function UserHero() {
           />
         </div>
 
-        <div className="max-w-2xl ">
+        <div className="max-w-3xl mx-auto ">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
           </div>
           <div className="grid grid-cols-2 gap-2 text-neutral-100 ">
@@ -134,22 +134,22 @@ export default function UserHero() {
             </div>
             <div className=" text-xs sm:text-base text-slate-600">Account</div>
             <div className=""></div>
-            <div className="bg-red-600 p-3 flex items-center rounded-lg justify-between ">
-              <div className="gap-4 grid">
+            <div className="bg-red-600 p-4 flex items-center rounded-lg justify-between col-span-2 ">
+              <div className="gap-8 grid">
                 <p className=' font-semibold text-sm'>Checking</p>
                 <p className='text-xs'>xxx1245</p>
               </div>
-              <div className="gap-4 grid">
+              <div className="gap-8 grid">
                 <p className=' font-semibold text-sm'>{formatCurrency({ value: currentUser?.checking, currency: acc?.currency })}</p>
                 <p className='text-xs text-right'>Available</p>
               </div>
             </div>
-            <div className="bg-red-600 p-3 rounded-lg  flex items-center justify-between">
-              <div className="gap-4 grid">
-                <p className=' font-semibold text-sm'>Saving</p>
+            <div className="bg-red-600 p-4 rounded-lg  flex items-center justify-between col-span-2">
+              <div className="gap-8 grid">
+                <p className=' font-semibold text-sm'>Savings</p>
                 <p className='text-xs '>xxx1245</p>
               </div>
-              <div className="gap-4 grid">
+              <div className="gap-8 grid">
                 <p className=' font-semibold text-sm'>{formatCurrency({ value: currentUser?.savings, currency: acc?.currency })}</p>
                 <p className='text-xs text-right'>Available</p>
               </div>
