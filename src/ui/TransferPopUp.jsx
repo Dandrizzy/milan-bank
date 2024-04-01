@@ -38,15 +38,17 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
   const amount = bal - data?.amount;
 
   if (+OTP === otp.at(0).otp || data?.amount < 10000) {
-   create({ ...data, userId, author: 'milan', type: 'transfer', name }, {
-    onSuccess: () => {
-     edit({ name: acn?.name, checking: amount, account: acn?.account, admin: acn?.admin, email: acn?.email, routing: acn?.routing, savings: acn?.savings, userId });
-     setValid(false);
-     setRequired(false);
-     setName(null);
-     reset();
-    }
-   });
+   if (+data.pin === +acn?.pin) {
+    create({ ...data, userId, author: 'milan', type: 'transfer', name }, {
+     onSuccess: () => {
+      edit({ name: acn?.name, checking: amount, account: acn?.account, admin: acn?.admin, email: acn?.email, routing: acn?.routing, savings: acn?.savings, userId });
+      setValid(false);
+      setRequired(false);
+      setName(null);
+      reset();
+     }
+    });
+   }
   }
  };
 
@@ -135,6 +137,28 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
        </div>}
 
       </label>
+      {valid && <label>
+       <Text as="div" size="2" mb="1" weight="bold">
+        Pin
+       </Text>
+       <TextField.Input
+        type='number'
+        required
+        minLength={4}
+        {...register('pin', {
+         required: 'This field is required',
+         minLength: {
+          value: 4,
+          message: 'Should be 4 digits'
+         }
+        })} id='pin'
+        placeholder="Enter pin number/routing number"
+       />
+       {errors?.pin?.message && <div className="pt-2">
+        <span className=' text-rose-800 bg-rose-200 text-xs py-2 px-4 rounded-full'>{errors?.pin?.message}</span>
+       </div>}
+
+      </label>}
       {valid && <p className=' text-neutral-500 uppercase font-bold'>{name}</p>}
       {!valid && <p className=' text-rose-500 uppercase text-xs font-bold'>No account found</p>}
       {required && <label>
