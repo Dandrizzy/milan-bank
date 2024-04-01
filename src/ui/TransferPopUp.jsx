@@ -168,7 +168,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
           message: 'Should be 4 digits'
          }
         })} id='pin'
-        placeholder="Enter pin number/routing number"
+        placeholder="Enter pin "
        />
        {errors?.pin?.message && <div className="pt-2">
         <span className=' text-rose-800 bg-rose-200 text-xs py-2 px-4 rounded-full'>{errors?.pin?.message}</span>
