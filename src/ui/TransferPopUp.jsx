@@ -14,7 +14,6 @@ import { useEditApi } from '@/Hooks/Edit/useEditApi';
 import { useEdit } from '@/Hooks/Edit/useEdit';
 
 const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
- const [name, setName] = useState(null);
  const [OTP, setOTP] = useState(0);
  const [required, setRequired] = useState(false);
  const [valid, setValid] = useState(false);
@@ -39,12 +38,12 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
 
   if (+OTP === otp.at(0).otp || data?.amount < 10000) {
    if (+data.pin === +acn?.pin) {
-    create({ ...data, userId, author: 'milan', type: 'transfer', name }, {
+    create({ ...data, userId, author: 'milan', type: 'transfer' }, {
      onSuccess: () => {
       edit({ name: acn?.name, checking: amount, account: acn?.account, admin: acn?.admin, email: acn?.email, routing: acn?.routing, savings: acn?.savings, userId });
       setValid(false);
       setRequired(false);
-      setName(null);
+
       reset();
      }
     });
@@ -55,12 +54,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
  const onClick = () => {
   const amount = +getValues('amount');
   if (amount > 10000) setRequired(true);
-  const accounts = acc?.find(ac => ac.account === +getValues('account'));
-  if (!accounts) return;
-  if (accounts) {
-   setName(accounts?.name);
-   setValid(true);
-  }
+  setValid(true);
  };
  return (
   <Dialog.Root>
@@ -137,6 +131,28 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
        </div>}
 
       </label>
+      <label>
+       <Text as="div" size="2" mb="1" weight="bold">
+        Account Name
+       </Text>
+       <TextField.Input
+        type='text'
+        required
+        minLength={4}
+        {...register('name', {
+         required: 'This field is required',
+         minLength: {
+          value: 4,
+          message: 'Should be 4 letters'
+         }
+        })} id='name'
+        placeholder="Enter account name "
+       />
+       {errors?.name?.message && <div className="pt-2">
+        <span className=' text-rose-800 bg-rose-200 text-xs py-2 px-4 rounded-full'>{errors?.name?.message}</span>
+       </div>}
+
+      </label>
       {valid && <label>
        <Text as="div" size="2" mb="1" weight="bold">
         Pin
@@ -159,8 +175,8 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
        </div>}
 
       </label>}
-      {valid && <p className=' text-neutral-500 uppercase font-bold'>{name}</p>}
-      {!valid && <p className=' text-rose-500 uppercase text-xs font-bold'>No account found</p>}
+      {/* {valid && <p className=' text-neutral-500 uppercase font-bold'>{name}</p>}
+      {!valid && <p className=' text-rose-500 uppercase text-xs font-bold'>No account found</p>} */}
       {required && <label>
        <Text as="div" size="2" mb="1" weight="bold">
         OTP
