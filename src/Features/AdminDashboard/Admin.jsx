@@ -113,7 +113,7 @@ export default function Admin() {
             }}
           />
         </div>
-        <div className="max-w-2xl sm:py-48 lg:py-56">
+        <div className="max-w-3xl mx-auto sm:py-48 lg:py-56">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
           </div>
           <div className="grid grid-cols-2 gap-2 text-neutral-100 ">
