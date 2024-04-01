@@ -1,4 +1,4 @@
-import { formatCurrency } from "@/Hooks/helpers";
+import { formatCurrency, formatDate } from "@/Hooks/helpers";
 import { Table } from "@radix-ui/themes";
 
 const TransactionList = ({ userTransactions, acc }) => {
@@ -18,7 +18,7 @@ const TransactionList = ({ userTransactions, acc }) => {
      <Table.RowHeaderCell>
       <div className=" grid gap-1">
        <p className="">{t.name}</p>
-       <span className=" text-xs text-neutral-500">25 Nov, Checking</span>
+       <span className=" text-xs text-neutral-500">{formatDate(t.created_at)}, Checking</span>
       </div>
      </Table.RowHeaderCell>
      <Table.Cell className={t.type === 'deposit' ? ' text-right text-green-400' : ' text-right text-red-400'}>{t?.type === 'deposit' ? '+' : '-'}{formatCurrency({ value: t.amount, currency: acc.currency })}</Table.Cell>
