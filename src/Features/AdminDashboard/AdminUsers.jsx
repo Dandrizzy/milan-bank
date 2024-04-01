@@ -132,6 +132,17 @@ const AdminUsers = () => {
      </label>
      <label>
       <Text as="div" size="2" mb="1" weight="bold" className=' text-neutral-800'>
+       Pin
+      </Text>
+      <TextField.Input
+       disabled={accounts !== undefined} className=" disabled:cursor-not-allowed"
+       {...register('pin')} id='pin' required type="number"
+       defaultValue={accounts === undefined ? '' : accounts?.pin}
+       placeholder="Enter pin."
+      />
+     </label>
+     <label>
+      <Text as="div" size="2" mb="1" weight="bold" className=' text-neutral-800'>
        Currency
       </Text>
       <select disabled={accounts?.currency !== undefined} defaultValue={accounts === undefined ? 'USD' : accounts?.currency} {...register('currency')} id='currency' className=" rounded-full disabled:cursor-not-allowed border-[1.5px] border-neutral-300 disabled:bg-neutral-200/80" >
