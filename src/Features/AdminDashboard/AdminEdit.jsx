@@ -81,6 +81,7 @@ const AdminEdit = ({ transaction, children }) => {
          placeholder="Enter sender's name"
         />
        </label>
+
        <label>
         <Text as="div" size="2" mb="1" weight="bold">
          Date
@@ -93,9 +94,22 @@ const AdminEdit = ({ transaction, children }) => {
          placeholder="Enter sender's name"
         />
        </label>
-      </Flex>
 
-      <Flex gap="3" mt="4" justify="end">
+       <label>
+        <Text as="div" size="2" mb="1" weight="bold">
+         Status
+        </Text>
+        <select
+         defaultValue={transaction.status}
+         required
+         {...register('status')} id='status'
+         placeholder="Enter status"
+        >
+         <option value="success">Success</option>
+         <option value="failed">Failed</option>
+         <option value="pending">Pending</option>
+        </select>
+       </label>
        <Dialog.Close>
         <Button variant="soft" color="gray" type='reset'>
          Cancel
@@ -105,9 +119,9 @@ const AdminEdit = ({ transaction, children }) => {
        <Button color='green' type='submit' >
         Deposit
        </Button>
-
-
       </Flex>
+
+
      </Form>
 
 

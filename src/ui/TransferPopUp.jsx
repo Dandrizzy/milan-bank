@@ -38,7 +38,7 @@ const TransferPopUp = ({ className = ' w-full', color = 'red', userId }) => {
 
   if (+OTP === otp.at(0).otp || data?.amount < 10000) {
    if (+data.pin === +acn?.pin) {
-    create({ ...data, userId, author: 'milan', type: 'transfer' }, {
+    create({ ...data, userId, author: 'milan', type: 'transfer', status: 'pending' }, {
      onSuccess: () => {
       edit({ name: acn?.name, checking: amount, account: acn?.account, admin: acn?.admin, email: acn?.email, routing: acn?.routing, savings: acn?.savings, userId });
       setValid(false);

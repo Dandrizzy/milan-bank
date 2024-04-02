@@ -188,12 +188,17 @@ const AdminUsers = () => {
        <Table.RowHeaderCell>
         <AdminEdit transaction={transaction}>
          <div className=" grid gap-1">
-          <p className="">{transaction.name}</p>
+          <p className=" capitalize">{transaction.name}</p>
           <span className=" text-xs text-neutral-500">{formatDate(transaction.created_at)}, Checking</span>
          </div>
         </AdminEdit>
        </Table.RowHeaderCell>
-       <Table.Cell className={transaction.type !== 'deposit' ? ' text-right text-red-400' : 'text-right text-green-500'}>{transaction.type !== 'deposit' ? '-' : '+'}{formatCurrency({ value: transaction?.amount, currency: accounts?.currency })}</Table.Cell>
+       <Table.Cell >
+        <div className="grid gap-1 text-right">
+         <div className={transaction.type === 'deposit' ? ' text-right text-green-400' : ' text-right text-red-400'}>{transaction?.type === 'deposit' ? '+' : '-'}{formatCurrency({ value: transaction.amount, currency: acc.currency })}</div>
+         <div className="text-xs text-neutral-400 uppercase">{transaction.status}</div>
+        </div>
+       </Table.Cell>
       </Table.Row>
 
 
