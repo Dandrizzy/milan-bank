@@ -46,7 +46,7 @@ const AdminDeposit = ({ className = 'w-full' }) => {
    <Dialog.Content style={{ maxWidth: 450 }}>
     <Dialog.Title>Deposit</Dialog.Title>
     <Dialog.Description size="2" mb="4">
-     Checking Balance: <span className=" font-bold">{formatCurrency({ value: bal, currency: acc?.currency })}</span>
+     Checking Balance: <span className=" font-bold">{formatCurrency({ value: bal, currency: acn?.currency })}</span>
     </Dialog.Description>
     <Form onSubmit={handleSubmit(onSubmit)}>
      <Flex direction="column" gap="3">
