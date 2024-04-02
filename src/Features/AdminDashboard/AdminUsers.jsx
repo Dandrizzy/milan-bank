@@ -195,7 +195,7 @@ const AdminUsers = () => {
        </Table.RowHeaderCell>
        <Table.Cell >
         <div className="grid gap-1 text-right">
-         <div className={transaction.type === 'deposit' ? ' text-right text-green-400' : ' text-right text-red-400'}>{transaction?.type === 'deposit' ? '+' : '-'}{formatCurrency({ value: transaction.amount, currency: acc.currency })}</div>
+         <div className={transaction.type === 'deposit' ? ' text-right text-green-400' : ' text-right text-red-400'}>{transaction?.type === 'deposit' ? '+' : '-'}{formatCurrency({ value: transaction.amount, currency: accounts?.currency })}</div>
          <div className="text-xs text-neutral-400 uppercase">{transaction.status}</div>
         </div>
        </Table.Cell>
