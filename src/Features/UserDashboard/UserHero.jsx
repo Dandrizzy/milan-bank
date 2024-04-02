@@ -37,6 +37,7 @@ export default function UserHero() {
   const currentUser = acc?.find(ac => ac?.userId === user?.id);
   const userTransactions = transactions.filter(t => t.userId === user?.id);
 
+
   return (
     <div className="bg-white pt-8">
       <header className="absolute inset-x-0 top-0 z-50">
@@ -140,7 +141,7 @@ export default function UserHero() {
                 <p className='text-xs'>xxx1245</p>
               </div>
               <div className="gap-8 grid">
-                <p className=' font-semibold text-sm'>{formatCurrency({ value: currentUser?.checking, currency: acc?.currency })}</p>
+                <p className=' font-semibold text-sm'>{formatCurrency({ value: currentUser?.checking, currency: currentUser?.currency })}</p>
                 <p className='text-xs text-right'>Available</p>
               </div>
             </div>
@@ -150,7 +151,7 @@ export default function UserHero() {
                 <p className='text-xs '>xxx1245</p>
               </div>
               <div className="gap-8 grid">
-                <p className=' font-semibold text-sm'>{formatCurrency({ value: currentUser?.savings, currency: acc?.currency })}</p>
+                <p className=' font-semibold text-sm'>{formatCurrency({ value: currentUser?.savings, currency: currentUser?.currency })}</p>
                 <p className='text-xs text-right'>Available</p>
               </div>
             </div>
