@@ -177,7 +177,7 @@ export default function UserHero() {
                   </Tabs.Content>
 
                   <Tabs.Content value="transaction">
-                    <TransactionList userTransactions={userTransactions} acc={acc} />
+                    <TransactionList userTransactions={userTransactions} acc={currentUser} />
                   </Tabs.Content>
 
 
