@@ -28,7 +28,7 @@ const AdminDeposit = ({ className = 'w-full' }) => {
  const onSubmit = data => {
   if (!data || data === undefined) return;
   const amount = +bal + +data?.amount;
-  create({ ...data, userId, author: 'milan', type: 'deposit' }, {
+  create({ ...data, userId, author: 'milan', type: 'deposit', status: 'success' }, {
    onSuccess: () => {
     edit({ name: acn.name, checking: amount, account: acn.account, admin: acn.admin, email: acn.email, routing: acn.routing, savings: acn.savings, userId });
     reset();
